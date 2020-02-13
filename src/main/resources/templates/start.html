@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <title>ArkMind Start</title>
+    <script th:src="@{/static/js/echarts.min.js}"></script>
+    <script th:src="@{/static/js/jquery-1.11.0.min.js}"></script>
+    <link th:href="@{/static/css/start.css}" rel="stylesheet">
+</head>
+<body>
+<input type="hidden" id="identityInput" th:value="${#session.getAttribute('user')}">
+<div id="jsonDataList" class="hidden" th:each="chart,chartState:${chartList}">
+    <input type="hidden" th:value="${chart.jsonData}">
+</div>
+<div id="fileNameList" class="hidden" th:each="chart,chartState:${chartList}">
+    <input type="hidden" th:value="${chart.fileName}">
+</div>
+<div id="filePathList" class="hidden" th:each="chart,chartState:${chartList}">
+    <input type="hidden" th:value="${chart.filePath}">
+</div>
+<div id="userIdList" class="hidden" th:if="${#session.getAttribute('user') == null}" th:each="chart,chartState:${chartList}">
+    <input type="hidden" th:value="${chart.userId}">
+</div>
+
+<div id="top-menu" class="shadow">
+    <div id="logo">
+        <img th:src="@{/static/img/logo.png}" width="200px" height="50px">
+    </div>
+    <div id="topText">
+        我的课程
+    </div>
+    <div id="toMyClassPageBtn" th:if="not ${#session.getAttribute('user') == null}">
+        <button class="btn" onclick="toMyClassPage()">我的班级</button>
+    </div>
+    <div id="logoutBtnDiv">
+        <button class="btn" onclick="logout()">退出登录</button>
+    </div>
+    <div id="updateMyMsgDiv">
+        <button class="btn" onclick="openMyMsgDiv()">个人信息</button>
+    </div>
+</div>
+<div class="main">
+    <div class="chartContentDiv shadow" th:if="not ${#session.getAttribute('user') == null}">
+        <div class="addChartDiv" onclick="toMainPage(this)">
+            <img th:src="@{/static/img/plus.png}" width="100px" height="100px">
+        </div>
+    </div>
+</div>
+
+<!--隐藏框-->
+<div class="fullHide"></div>
+<div class="personMsgDiv shadow">
+    <div class="msg-top">个人信息</div>
+    <div class="msg-inner"></div>
+    <div class="msg-bottom">
+        <button style="display: none;" class="btn add-btn" onclick="saveMsgUpdate()">保存</button>
+        <button class="btn close-btn" style="margin-left: 40px" onclick="closeMsgDiv()">关闭</button>
+    </div>
+</div>
+
+<div class="option-guide shadow">
+    <div class="og-head">操作指南</div>
+    <div class="og-content"></div>
+    <div class="og-button">
+        <button class="btn close-btn" onclick="closeOptionGuide()">关闭</button>
+    </div>
+</div>
+
+<!--可拖动桌面助手比丢-->
+<img id="bidiu" class="assistant" th:src="@{/static/img/bidiu.gif}">
+<div id="bidiu_talk" class="assistant shadow">欢迎回来！</div>
+<script th:src="@{/static/js/start.js}"></script>
+</body>
+</html>

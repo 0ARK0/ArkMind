@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>学生答题情况</title>
+    <script th:src="@{/static/js/jquery-1.11.0.min.js}"></script>
+    <link th:href="@{/static/css/stuAnswerMsg.css}" rel="stylesheet">
+</head>
+<body>
+<input id="classIdInput" type="hidden" th:value="${classId}">
+
+<div id="top-menu" class="shadow">
+    <div id="logo">
+        <img th:src="@{/static/img/logo.png}" width="200px" height="50px">
+    </div>
+    <div class="topText" th:text="'班级：'+${className}"></div>
+    <div class="topText" th:text="'知识点：'+${pname}"></div>
+    <div class="topText"><button class="btn add-btn" onclick="openAnalyseDiv()">综合分析</button><button class="btn close-btn" style="margin-left: 40px" onclick="emptyAllAnswerMsg(this)">清空记录</button></div>
+    <input id="exerciseInput" type="hidden" th:value="${exercise}">
+    <input id="jsonFileNameInput" type="hidden" th:value="${jsonFileName}">
+    <input id="pidInput" type="hidden" th:value="${pid}">
+    <input id="classStuNum" type="hidden" th:value="${stuNum}">
+</div>
+
+<div id="main">
+    <table class="zebra">
+        <thead>
+            <tr>
+                <th>状态</th>
+                <th>学号</th>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>分数</th>
+                <th>查看</th>
+                <th>删除</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tfoot>
+        <tr class="stu-tr" th:each="item,msgState:${msgList}">
+            <td th:text="${item['state']}" th:classappend="${item['state'] == '未阅'} ? 'uncheckedColor' : 'checkedColor'"></td>
+            <td th:text="${item['studentId']}"></td>
+            <td th:text="${item['studentName']}"></td>
+            <td th:text="${item['sex']}"></td>
+            <td th:text="${item['score']}"></td>
+            <td><button class="btn add-btn" onclick="checkStuAnswerMsg(this)">答题情况</button><input class="stu-answer" type="hidden" th:value="${item['answer']}"><input class="stu-row" type="hidden" th:value="${item['row']}"></td>
+            <td><button class="btn close-btn" onclick="deleteOneAnswerMsg(this)">删除记录</button><input class="answer-record-id" type="hidden" th:value="${item['answerRecordId']}"></td>
+        </tr>
+    </table>
+</div>
+
+<!--隐藏属性-->
+<div class="fullHide"></div>
+<div id="stuAnswerMsgBlock">
+    <div class="samb-name">答题情况</div>
+    <input id="samb-answer-record-id" type="hidden">
+    <div class="ec-inner"></div>
+    <div class="samb-bottom">
+        <button id="submitAnswerScoreBtn" class="btn add-btn" onclick="submitAnswerScore()">提交</button>
+        <button class="btn close-btn" style="margin-left: 80px" onclick="closeSamb()">关闭</button>
+    </div>
+</div>
+<!--综合分析的图表div-->
+<div id="analyseDiv">
+    <div class="analyseTop">
+        <div class="at-label">
+            <div class="circle-color" style="background-color: #2ecc71">90—100</div>
+            <div class="circle-color" style="background-color: #3498db">60—89</div>
+            <div class="circle-color" style="background-color: #c0392b">0—59</div>
+        </div>
+        <button class="btn close-btn" style="margin-right: 10px; float: right" onclick="closeAnalyseDiv()">关闭</button>
+    </div>
+    <div id="chartDiv"></div>
+    <div class="analyseRightDiv">
+        <div class="analyseRightDiv-content">
+            <div id="ardc-item-classStuNum" class="ardc-item">班级人数：<span></span></div>
+            <div id="ardc-item-answeredNum" class="ardc-item">已答题人数：<span></span></div>
+            <div id="ardc-item-checkedNum" class="ardc-item">已阅人数：<span></span></div>
+            <hr>
+            <div id="ardc-item-excellent" class="ardc-item" style="color: #2ecc71">优秀人数：<span></span></div>
+            <div id="ardc-item-regular" class="ardc-item" style="color: #3498db">达标人数：<span></span></div>
+            <div id="ardc-item-unqualified" class="ardc-item" style="color: #c0392b">未达标人数：<span></span></div>
+        </div>
+        <div class="analyseRightBottom">
+            <button class="btn add-btn" onclick="toPrevPage()">&lt;&lt;上一页</button>
+            <button class="btn add-btn" onclick="toNextPage()">下一页&gt;&gt;</button>
+        </div>
+    </div>
+</div>
+
+
+<script th:src="@{/static/js/stuAnswerMsg.js}"></script>
+<script th:src="@{/static/js/main.js}"></script>
+<script th:src="@{/static/js/echarts.min.js}"></script>
+<script>
+    var aChart = echarts.init(document.getElementById("chartDiv"));
+</script>
+</body>
+</html>

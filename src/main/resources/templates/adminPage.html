@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ark Mind Admin Page</title>
+    <script th:src="@{/static/js/jquery-1.11.0.min.js}"></script>
+    <link th:href="@{/static/css/adminPage.css}" rel="stylesheet">
+</head>
+<body>
+<div id="top-menu" class="shadow">
+    <div id="logo">
+        <img th:src="@{/static/img/logo.png}" width="200px" height="50px">
+    </div>
+    <div id="topText">
+        欢迎您！超级用户
+    </div>
+    <div class="toPageBtn">
+        <button class="btn" onclick="showClassDiv()">班级管理</button>
+    </div>
+    <div class="toPageBtn">
+        <button class="btn" onclick="showTeacherDiv()">教师管理</button>
+    </div>
+    <div class="toPageBtn">
+        <button class="btn" onclick="logout()">退出登录</button>
+    </div>
+</div>
+<div class="main">
+</div>
+
+<!--隐藏框-->
+<div id="addUserBlock" class="userBlock shadow">
+    <div class="blockName">新增教师</div>
+    <div class="block-inner">
+        教师工号：<input id="newUserAccount" type="text">
+        <p></p>
+        教师姓名：<input id="newUserName" type="text">
+        <p></p>
+        性别： 男<input name="newUserSex" type="radio" value="男" checked> &nbsp;&nbsp;&nbsp;&nbsp;女<input name="newUserSex" type="radio" value="女">
+        <p></p>
+    </div>
+    <div class="block-bottom">
+        <button class="btn add-btn" onclick="saveNewUser()">保存</button>
+        <button class="btn close-btn" style="margin-left: 40px" onclick="closeUserBlock()">关闭</button>
+    </div>
+</div>
+
+<div id="updateUserBlock" class="userBlock shadow">
+    <div class="blockName">修改信息</div>
+    <div class="block-inner">
+        <input id="updateUserId" type="hidden">
+        教师工号：<input id="updateUserAccount" type="text">
+        <p></p>
+        教师姓名：<input id="updateUserName" type="text">
+        <p></p>
+        性别： 男<input id="sex-male" name="updateUserSex" type="radio" value="男"> &nbsp;&nbsp;&nbsp;&nbsp;女<input id="sex-female" name="updateUserSex" type="radio" value="女">
+        <p></p>
+    </div>
+    <div class="block-bottom">
+        <button class="btn add-btn" onclick="submitUpdateUser()">保存</button>
+        <button class="btn close-btn" style="margin-left: 40px" onclick="closeUserBlock()">关闭</button>
+    </div>
+</div>
+
+<div id="addClassBlock" class="userBlock shadow">
+    <div class="blockName">分配班级</div>
+    <input type="hidden" id="addCB-userId">
+    <div class="block-classNames"></div>
+    <div class="block-bottom">
+        <button class="btn add-btn" onclick="saveClassForUser()">保存</button>
+        <button class="btn close-btn" style="margin-left: 40px" onclick="closeUserBlock()">关闭</button>
+    </div>
+</div>
+
+<script th:src="@{/static/js/adminPage.js}"></script>
+</body>
+</html>

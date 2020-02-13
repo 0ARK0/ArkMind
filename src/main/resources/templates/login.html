@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>欢迎登录 ArkMind</title>
+    <script th:src="@{/static/js/echarts.min.js}"></script>
+    <script th:src="@{/static/js/jquery-1.11.0.min.js}"></script>
+    <link th:href="@{/static/css/login.css}" rel="stylesheet">
+</head>
+<body>
+<div id="logo">
+    <img th:src="@{/static/img/logo.png}" width="200px" height="50px">
+</div>
+<div id="mainContent"></div>
+<div id="loginDiv"></div>
+
+<div id="loginDivUp">
+    <div id="topText">欢迎登录 ArkMind</div>
+    <hr width="80%">
+    <div id="loginInner">
+        <form method="post" action="/ArkMind/user/login">
+            <p>账号：</p>
+            <input type="text" name="account">
+            <p>密码：</p>
+            <input type="password" name="password">
+            <p>身份：</p>
+            <select name="identity">
+                <option>学生</option>
+                <option>教师</option>
+                <option>管理员</option>
+            </select>
+            <p></p>
+            <button class="btn" type="submit">登录</button>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="btn" type="reset">重置</button>
+        </form>
+    </div>
+    <div id="msgDiv">
+        <p id="errorMsg" th:text="${errorMsg}" />
+        <p id="successMsg" th:text="${successMsg}" />
+    </div>
+</div>
+
+<script th:src="@{/static/js/login.js}"></script>
+</body>
+</html>

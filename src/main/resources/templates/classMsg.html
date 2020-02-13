@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ArkMind Class Message</title>
+    <script th:src="@{/static/js/jquery-1.11.0.min.js}"></script>
+    <link th:href="@{/static/css/classMsg.css}" rel="stylesheet">
+</head>
+<body>
+<input id="classIdInput" type="hidden" th:value="${classId}">
+
+<div id="top-menu" class="shadow">
+    <div id="logo">
+        <img th:src="@{/static/img/logo.png}" width="200px" height="50px">
+    </div>
+    <div id="topText" th:text="${className}"></div>
+    <div id="toMyClassPageBtn" th:if="not ${#session.getAttribute('user') == null}">
+        <button class="btn" onclick="toMyClassPage()">我的班级</button>
+    </div>
+    <div id="goBackAdminPageBtn" style="margin-top: 5px" th:if="not ${#session.getAttribute('admin') == null}">
+        <button class="btn" onclick="goBackAdminPage()">返回</button>
+    </div>
+</div>
+
+<div id="main">
+    <table class="zebra">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>年级</th>
+                <th>学号</th>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>选择</th>
+            </tr>
+        </thead>
+        <tfoot>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        </tfoot>
+        <tr class="stu-tr" th:each="student,studentState:${studentPageInfo.list}">
+            <td></td>
+            <td th:text="${student.grade}"></td>
+            <td th:text="${student.studentId}"></td>
+            <td th:text="${student.name}"></td>
+            <td th:text="${student.sex}"></td>
+            <td><input type="checkbox"></td>
+        </tr>
+    </table>
+<!--    用于显示学生信息表格，需要分页-->
+    <div id="main-bottom">
+        <ul class="pagination">
+            <li id="li-prev"><a href="javascript:void(0);" onclick="toSomePage('prev')">«</a></li>
+            <li id="li-num"><a th:class="${iterState.first}?'active'" href="javascript:void(0);"onclick="toSomePage(this)" th:each="i,iterState:${#numbers.sequence(1,studentPageInfo.pages)}" th:text="${i}"></a></li>
+            <li id="li-next"><a href="javascript:void(0);" onclick="toSomePage('next')">»</a></li>
+        </ul>
+    </div>
+</div>
+
+<script th:src="@{/static/js/classMsg.js}"></script>
+</body>
+</html>

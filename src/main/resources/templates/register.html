@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ArkMind-新用户注册</title>
+    <script th:src="@{/static/js/echarts.min.js}"></script>
+    <script th:src="@{/static/js/jquery-1.11.0.min.js}"></script>
+    <link th:href="@{/static/css/register.css}" rel="stylesheet">
+</head>
+<body>
+<div id="logo">
+    <img th:src="@{/static/img/logo.png}" width="200px" height="50px">
+</div>
+
+<div id="mainContent"></div>
+<div id="registerDiv"></div>
+<div id="registerDivUp">
+    <div id="topText">用户注册 ArkMind</div>
+    <hr width="80%">
+    <div id="registerInner">
+        <form method="post" action="/ArkMind/user/register">
+            <p>账号：</p>
+            <input type="text" name="account">
+            <p>密码：</p>
+            <input type="password" name="password">
+            <p>昵称：</p>
+            <input type="text" name="nickName">
+            <p style="height: 20px"></p>
+            <button class="btn" type="submit">注册</button>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="btn" type="reset">重置</button>
+        </form>
+    </div>
+    <div id="errorDiv">
+        <p th:text="${errorMsg}" />
+    </div>
+</div>
+
+
+<script th:src="@{/static/js/register.js}"></script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Mind map</title>
+    <script th:src="@{/static/js/echarts.min.js}"></script>
+    <script th:src="@{/static/js/jquery-1.11.0.min.js}"></script>
+    <link th:href="@{/static/css/main.css}" rel="stylesheet">
+</head>
+<body>
+<div id="top-menu" >
+    <span th:if="(${#strings.isEmpty(jsonData)}) and (not ${#session.getAttribute('user') == null})">上传Excel文件创建图表：</span>
+    <div class="uploadDiv" th:if="(${#strings.isEmpty(jsonData)}) and (not ${#session.getAttribute('user') == null})">
+        <span>上传文件</span>
+        <input id="fileUploader" class="file" type="file" accept=".xls, .xlsx" onchange="uploadFile()">
+    </div>
+    <div id="logo" th:if="${not #strings.isEmpty(jsonData)}">
+        <img th:src="@{/static/img/logo.png}" width="200px" height="50px">
+    </div>
+    <span style="left: 250px;position: relative;">
+        <input id="searchInput" type="text" placeholder="搜索内容" style="width: 260px;" onkeypress="bindEnterBySearch()">
+        <button class="btn" id="searchBtn" onclick="searchData()">搜索</button>
+    </span>
+    <button class="btn" style="left: 350px;position: relative;" onclick="reshowChart()">还原</button>
+    <span style="left: 400px;position: relative;">
+        <button class="btn" onclick="saveChart(false)" th:if="not ${#session.getAttribute('user') == null}">保存</button>
+    </span>
+    <span style="left: 450px;position: relative;">
+        <button class="btn" onclick="changeChartColor()">换肤</button>
+    </span>
+    <span style="left: 500px;position: relative;">
+        <button class="btn" onclick="toStartPage()">我的课程</button>
+    </span>
+    <span style="left: 550px;position: relative;">
+        <button class="btn" onclick="checkClassAnalyse()" th:if="${#session.getAttribute('user') == null}">课程评价</button>
+    </span>
+</div>
+
+<div id="main" style="width: 100%;height: 650px; top:60px"></div>
+
+<!--各种弹出框和隐藏的元素-->
+<input type="hidden" id="chartIdInput" th:value="${chartId}">
+<input type="hidden" id="identityInput" th:value="${#session.getAttribute('user')}">
+<input type="hidden" id="jsonDataInput" th:value="${jsonData}">
+<input type="hidden" id="jsonFileNameInput" th:value="${jsonFileName}">
+<input type="hidden" id="chartNameInput" th:value="${chartName}">
+<input type="hidden" id="userIdInput" th:value="${userId}">
+
+<div id="videoPreviewDiv"></div>
+
+<div id="right-click-menu" class="click-menu" style="width:150px;height:auto;">
+    <div class="right-click-menu-inner" onclick="addNode()" th:if="not ${#session.getAttribute('user') == null}">新增</div>
+    <div class="right-click-menu-inner" onclick="updateNode()" th:if="not ${#session.getAttribute('user') == null}">编辑</div>
+    <div class="right-click-menu-inner" onclick="deleteNode()" th:if="not ${#session.getAttribute('user') == null}">删除</div>
+    <div class="right-click-menu-inner" onclick="openLearningContent()">资料</div>
+    <div class="right-click-menu-inner" onclick="openCreateExerciseContent()" th:if="not ${#session.getAttribute('user') == null}">习题</div>
+    <div class="right-click-menu-inner" onclick="openViewExerciseContent()" th:if="not ${#session.getAttribute('student') == null}">习题</div>
+</div>
+
+<div id="input-menu" class="small-menu click-menu" style="width:150px;height:80px;">
+    <input id="newNodeName" type="text" placeholder="名称" style="width: 140px;" onkeypress="bindEnterByAddMenu()">
+    <p></p>
+    <button id="add-menu-ybtn" class="small-btn" onclick="addNodeConfirm(true)">确认</button> &nbsp;&nbsp;&nbsp;
+    <button class="small-btn" onclick="addNodeConfirm(false)">取消</button>
+</div>
+
+<div id="delete-menu" class="small-menu click-menu" style="width: 150px;height: 100px;">
+    <p>确认删除吗？</p>
+    <button class="small-btn" onclick="deleteNodeConfirm(true)">确认</button> &nbsp;&nbsp;&nbsp;
+    <button class="small-btn" onclick="deleteNodeConfirm(false)">取消</button>
+</div>
+
+<div id="update-menu" class="small-menu click-menu" style="width: 150px;height: 80px;">
+    <input id="newNodeName2" type="text" placeholder="新的名称" style="width: 140px;" onkeypress="bindEnterByUpdateMenu()">
+    <p></p>
+    <button id="update-menu-ybtn" class="small-btn" onclick="updateNodeConfirm(true)">确认</button>&nbsp;&nbsp;&nbsp;
+    <button class="small-btn" onclick="updateNodeConfirm(false)">取消</button>
+</div>
+
+<div class="fullHide"></div>
+
+<!--学习资料对话框-->
+<div class="learningContent">
+    <div class="lc-top">
+        <div class="lc-name"></div>
+        <div class="lc-close" onclick="closeLearningContent()">关闭</div>
+    </div>
+    <div class="lc-content"></div>
+    <div class="lc-bottom" th:if="not ${#session.getAttribute('user') == null}">
+        <div class="uploadDiv2">
+            <span>添加学习资料</span>
+            <input id="fileUploader2" class="file" type="file" onchange="uploadLearningFile()" multiple="multiple">
+        </div>
+    </div>
+</div>
+
+<!--练习题对话框-->
+<div class="editExerciseContent">
+    <div class="ec-name">
+        <div class="ec-name-item">练习题</div>
+        <div class="ec-name-item" onclick="addASelect()"><img th:src="@{/static/img/oselect.png}" title="添加单选题" width="35px" height="35px"></div>
+        <div class="ec-name-item" onclick="addMutiSelect()"><img th:src="@{/static/img/mutiselect.png}" title="添加多选题" width="35px" height="35px"></div>
+        <div class="ec-name-item" onclick="addFillBlank()"><img th:src="@{/static/img/fillBlank.png}" title="添加填空题" width="35px" height="35px"></div>
+        <div class="ec-name-item" onclick="addYN()"><img th:src="@{/static/img/yn.png}" title="添加判断题" width="35px" height="35px"></div>
+        <div class="ec-name-item" onclick="addAnswer()"><img th:src="@{/static/img/answer.png}" title="添加简答题" width="35px" height="35px"></div>
+    </div>
+    <div class="ec-inner"></div>
+    <div class="ec-bottom">
+        <button id="ec-bottom-submitBtn" class="btn add-btn" onclick="submitExerciseContent()">提交</button>
+        <button id="ec-bottom-saveBtn" class="btn add-btn" onclick="saveExerciseContent()">保存</button>
+        <button class="btn close-btn" style="margin-left: 40px" onclick="closeEditExerciseContent()">关闭</button>
+        <button id="ec-bottom-delBtn" class="btn close-btn" style="margin-left: 40px" onclick="deleteAllExercise()">清空习题</button>
+    </div>
+</div>
+
+<!--选择班级对话框-->
+<div id="chooseClassForCheckAnswer">
+    <div class="ccfc-name">请选择班级</div>
+    <div class="ccfc-content"></div>
+    <div class="ccfc-bottom"><button class="btn close-btn" onclick="closeCCFC()">关闭</button></div>
+</div>
+<script th:src="@{/static/js/main.js}"></script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ArkMind My Class</title>
+    <script th:src="@{/static/js/jquery-1.11.0.min.js}"></script>
+    <script th:src="@{/static/js/myClass.js}"></script>
+    <link th:href="@{/static/css/myClass.css}" rel="stylesheet">
+</head>
+<body>
+<div id="top-menu" class="shadow">
+    <div id="logo">
+        <img th:src="@{/static/img/logo.png}" width="200px" height="50px">
+    </div>
+    <div id="topText">
+        我的班级
+    </div>
+    <div id="toMyChartsPageBtn">
+        <button class="btn" onclick="toStartPage()">我的课程</button>
+    </div>
+</div>
+
+<div id="main" >
+    <div th:each="class,classState:${myClassList}">
+        <div class="classContentDiv shadow">
+            <input type="hidden" class="classGradeInput" th:value="${class.grade}">
+            <div class="className" th:text="${class.name}" th:id="${class.classId}" th:name="${class.name}" onclick="toClassPage(this)"></div>
+            <div class="addCharts" onclick="showChartsDiv(this)">课程</div>
+            <div class="classEvaluate" onclick="showCourseDiv(this)">评价</div>
+        </div>
+    </div>
+</div>
+
+<!--显示图表名称列表的隐藏弹出框-->
+<div id="chartsNameBlock">
+    <div class="cnb-className"></div>
+    <input type="hidden" class="cnb-cn-input">
+    <input id="cnb-classId" type="hidden">
+    <input id="cnb-classGrade" type="hidden">
+    <div class="cnb-chartNames"></div>
+    <div class="cnb-bottom">
+        <button id="saveBtn" class="btn add-btn" onclick="addChartsForClass()">保存</button>
+        <button id="closeBtn1" class="btn close-btn" style="margin-left: 40px" onclick="closeChartsNameBlock()">关闭</button>
+        <button id="closeBtn2" class='btn close-btn c2' style="display: none;margin-left: 60px" onclick='closeCouserDiv()'>关闭</button>
+    </div>
+</div>
+
+<div class="fullHide"></div>
+
+</body>
+</html>

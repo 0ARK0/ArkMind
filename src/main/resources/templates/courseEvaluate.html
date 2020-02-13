@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ArkMind 课程评价</title>
+    <script th:src="@{/static/js/jquery-1.11.0.min.js}"></script>
+    <link th:href="@{/static/css/courseEvaluate.css}" rel="stylesheet">
+</head>
+<body>
+<input id="classIdInput" type="hidden" th:value="${classId}">
+<input id="chartIdInput" type="hidden" th:value="${chartId}">
+<div id="top-menu" class="shadow">
+    <div id="logo">
+        <img th:src="@{/static/img/logo.png}" width="200px" height="50px">
+    </div>
+    <div class="topText" th:text="'班级：'+${className}"></div>
+    <div class="topText" th:text="'年级：'+${grade}"></div>
+    <div class="topText" th:text="'课程：'+${chartName}"></div>
+    <div class="topText"><button class="btn add-btn" onclick="openAnalyseDiv()">综合分析</button></div>
+</div>
+
+<div id="main">
+    <table class="zebra">
+        <thead>
+        <tr>
+            <th>学号</th>
+            <th>姓名</th>
+            <th>性别</th>
+            <th>课程总评</th>
+            <th>个人分析</th>
+        </tr>
+        </thead>
+        <tfoot>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        </tfoot>
+        <tr class="stu-tr" th:each="item,msgState:${courseEvaluateList}">
+            <td th:text="${item['student'].studentId}"></td>
+            <td th:text="${item['student'].name}"></td>
+            <td th:text="${item['student'].sex}"></td>
+            <td th:text="${item['score']}"></td>
+            <td><button class="btn add-btn" onclick="individualAnalyse(this)">分析</button></td>
+        </tr>
+    </table>
+</div>
+
+<!--个人分析对话框-->
+<div class="individualAnalyseDiv">
+    <div class="analyseTop">
+        <button class="btn close-btn" style="margin-right: 10px; float: right" onclick="closeIndividualAnalyseDiv()">关闭</button>
+    </div>
+    <div id="chartDiv"></div>
+    <div class="analyseRDiv">
+        <div class="iadr-content"></div>
+        <div class="iadr-bottom">
+            <button class='btn add-btn' onclick='toPrevStuItem(this)'>上一个</button>
+            <button class='btn add-btn' onclick='toNextStuItem(this)'>下一个</button>
+        </div>
+    </div>
+</div>
+
+<!--综合分析的图表div-->
+<div id="analyseDiv">
+    <div class="analyseTop">
+        <div class="at-label">
+            <div class="circle-color" style="background-color: #2ecc71">90—100</div>
+            <div class="circle-color" style="background-color: #3498db">60—89</div>
+            <div class="circle-color" style="background-color: #c0392b">0—59</div>
+        </div>
+        <button class="btn close-btn" style="margin-right: 10px; float: right" onclick="closeAnalyseDiv()">关闭</button>
+    </div>
+    <div id="chartDiv2"></div>
+    <div class="analyseRightDiv">
+        <div class="analyseRightDiv-content">
+            <div id="ardc-item-classStuNum" class="ardc-item">班级人数：<span></span></div>
+            <div id="ardc-item-excellent" class="ardc-item" style="color: #2ecc71">优秀人数：<span></span></div>
+            <div id="ardc-item-regular" class="ardc-item" style="color: #3498db">达标人数：<span></span></div>
+            <div id="ardc-item-unqualified" class="ardc-item" style="color: #c0392b">未达标人数：<span></span></div>
+        </div>
+        <div class="analyseRightBottom">
+            <button class="btn add-btn" onclick="toPrevPage()">&lt;&lt;上一页</button>
+            <button class="btn add-btn" onclick="toNextPage()">下一页&gt;&gt;</button>
+        </div>
+    </div>
+</div>
+
+<div class="fullHide"></div>
+<script th:src="@{/static/js/echarts-radar.min.js}"></script>
+<script th:src="@{/static/js/courseEvaluate.js}"></script>
+<script>
+
+</script>
+</body>
+</html>

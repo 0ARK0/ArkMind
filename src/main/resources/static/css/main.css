@@ -1,0 +1,454 @@
+body{
+    margin: 0px;
+}
+
+/*顶部菜单栏*/
+#top-menu{
+    width: 100%;
+    height: 50px;
+    background-color: #576574;
+    color: white;
+    padding-top: 20px;
+    padding-left: 20px;
+    position: absolute;
+    z-index: 100;
+    /*阴影效果*/
+    border: #b9bbbe 1px solid;
+    filter:progid:DXImageTransform.Microsoft.Shadow(color=#909090,direction=120,strength=4);
+    -moz-box-shadow: 2px 2px 10px #909090;
+    -webkit-box-shadow: 2px 2px 10px #909090;
+    box-shadow:2px 2px 10px #909090;
+}
+
+#logo{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 220px;
+    height: 70px;
+    background-color: white;
+    float: left;
+}
+
+/*普通按钮*/
+.btn {
+    background-color: #ecf0f1;
+    border: none;
+    color: black;
+    padding: 8px 30px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 4px;
+}
+.btn:hover{
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+.add-btn{
+    background-color: #78C3F3;
+    color: white;
+}
+.close-btn{
+    background-color: #d63031;
+    color: white;
+}
+#ec-bottom-submitBtn{
+    display: none;
+}
+/*小按钮*/
+.small-btn{
+    background-color: #ecf0f1;
+    border: none;
+    color: black;
+    padding: 4px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 4px;
+}
+.small-btn:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+/*input 输入框*/
+input[type="text"]:not(.small-blank):not(.score-input){
+    box-sizing: border-box;
+    text-align:center;
+    font-size:1em;
+    height: 34px;
+    border-radius:4px;
+    border:1px solid #c8cccf;
+    color:#6a6f77;
+    -web-kit-appearance:none;
+    -moz-appearance: none;
+    outline:0;
+    padding:0 1em;
+    text-decoration:none;
+    display: inline;
+}
+input[type="text"]:not(.small-blank):not(.score-input):focus{
+    border:1px solid cornflowerblue;
+}
+
+/*分值的input*/
+.score-input{
+    border-radius:4px;
+    border-bottom: #2d3436 1px solid;
+    width: 80px;
+    text-align: center;
+}
+
+/*填空的input*/
+.small-blank{
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    border-bottom: #2d3436 1px solid;
+    width: 100px;
+    text-align: center;
+}
+.small-blank:focus{
+    border: 1px solid cornflowerblue;
+}
+
+/*文件上传*/
+.uploadDiv{
+    top: 20px;
+    left: 200px;
+    width: 120px;
+    height: 20px;
+    position: absolute;
+    background-color: #ecf0f1;
+    text-align: center;
+    color: black;
+    padding: 8px 30px;
+    border: #78C3F3 solid 1px;
+    border-radius: 4px;
+}
+.file{
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+
+/*右击显示的弹出框*/
+.click-menu {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    visibility: hidden;
+    z-index: 1000;
+    background-color: white;
+    border: #b9bbbe 1px solid;
+    border-radius: 5px;
+    /*阴影效果*/
+    filter:progid:DXImageTransform.Microsoft.Shadow(color=#909090,direction=120,strength=4);
+    -moz-box-shadow: 2px 2px 10px #909090;
+    -webkit-box-shadow: 2px 2px 10px #909090;
+    box-shadow:2px 2px 10px #909090;
+}
+.click-menu:hover{
+    cursor: pointer;
+}
+.right-click-menu-inner{
+    padding: 10px;
+    width: 131px;
+    height: 30px;
+}
+.right-click-menu-inner:hover{
+    cursor: pointer;
+    background-color: #b9bbbe;
+}
+.right-click-menu-inner a:link{
+    color: black;
+}
+.right-click-menu-inner a:visited{
+    color: black;
+}
+.right-click-menu-inner a{
+    text-decoration: none;
+}
+
+/*信息显示框*/
+#input-menu{
+    text-align: center;
+    background-color: #576574;
+    padding: 10px;
+    color: white;
+}
+
+#delete-menu{
+    text-align: center;
+    background-color: #576574;
+    padding: 10px;
+    color: white;
+}
+
+#update-menu{
+    text-align: center;
+    background-color: #576574;
+    padding: 10px;
+    color: white;
+}
+
+.fullHide{
+    position: absolute;
+    background-color: rgba(99, 110, 114, 0.6);
+    width: 100%;
+    height: 700px;
+    top: 0px;
+    left: 0px;
+    z-index: 2000;
+    display: none;
+}
+
+#videoPreviewDiv{
+    position: absolute;
+    width: 100%;
+    height: 700px;
+    top: 0px;
+    left: 0px;
+    z-index: 4000;
+    display: none;
+    text-align: center;
+}
+
+.learningContent{
+    position: absolute;
+    width: 400px;
+    height: 500px;
+    top:100px;
+    left:550px;
+    border: #b9bbbe 1px solid;
+    z-index: 3000;
+    display: none;
+    background-color: white;
+    border-radius: 5px;
+    /*阴影效果*/
+    filter:progid:DXImageTransform.Microsoft.Shadow(color=#909090,direction=120,strength=4);
+    -moz-box-shadow: 2px 2px 10px #909090;
+    -webkit-box-shadow: 2px 2px 10px #909090;
+    box-shadow:2px 2px 10px #909090;
+}
+
+.lc-top{
+    width: 100%;
+    height: 30px;
+    border-bottom: #353b48 2px solid;
+}
+
+.lc-name{
+    text-align: center;
+    padding-left: 10px;
+    float: left;
+    font-size: 24px;
+    width: 335px;
+    text-overflow:ellipsis;
+    overflow:hidden;
+    white-space:nowrap;
+}
+
+.lc-close{
+    text-align: center;
+    padding: 2px;
+    font-size: 20px;
+    float: left;
+    width: 50px;
+    border-top-right-radius: 5px;
+}
+.lc-close:hover{
+    cursor: pointer;
+    color: #f5f6fa;
+    background-color: #d63031;
+}
+.lc-content{
+    width: 100%;
+    font-size: 16px;
+    height: 420px;
+}
+.lc-file{
+    float: left;
+    width: 300px;
+    padding: 10px 10px 10px 20px;
+    text-overflow:ellipsis;
+    overflow:hidden;
+    white-space:nowrap;
+    height: 20px;
+}
+.lc-file:hover{
+    cursor: pointer;
+    background-color: #b9bbbe;
+}
+.lc-bottom{
+    width: 100%;
+    padding-top:10px;
+    text-align: center;
+}
+/*删除的小按钮*/
+.small-btn-del{
+    float: left;
+    background-color: #d63031;
+    border: none;
+    color: white;
+    padding: 4px 15px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 4px;
+    margin-top: 5px;
+}
+.small-btn-del:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+/*下载小按钮*/
+.small-btn-download{
+    float: left;
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 4px 15px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 4px;
+    margin-top: 5px;
+}
+.small-btn-download:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.uploadDiv2{
+    top: 450px;
+    left: 125px;
+    width: 100px;
+    height: 20px;
+    position: absolute;
+    background-color: #353b48;
+    color: white;
+    text-align: center;
+    padding: 8px 30px;
+    border: #78C3F3 solid 1px;
+    border-radius: 4px;
+}
+
+.editExerciseContent img:hover{
+    cursor: pointer;
+}
+
+.editExerciseContent{
+    position: absolute;
+    width: 750px;
+    height: 650px;
+    top: 30px;
+    left:425px;
+    border: #b9bbbe 1px solid;
+    z-index: 3000;
+    display: none;
+    background-color: white;
+    border-radius: 5px;
+    /*阴影效果*/
+    filter:progid:DXImageTransform.Microsoft.Shadow(color=#909090,direction=120,strength=4);
+    -moz-box-shadow: 2px 2px 10px #909090;
+    -webkit-box-shadow: 2px 2px 10px #909090;
+    box-shadow:2px 2px 10px #909090;
+}
+.ec-name{
+    width: 100%;
+    height: 35px;
+    padding-left: 20px;
+    padding-top: 10px;
+    font-size: 20px;
+}
+.ec-result{
+    margin-left: 20px;
+    display: none;
+    font-size: 18px;
+    /*color: #d63031;*/
+    /*color: #4CAF50;*/
+}
+.ec-name-item{
+    float: left;
+    margin-left: 30px;
+}
+.ec-inner{
+    width: 100%;
+    height: 550px;
+    font-size: 18px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+.ec-inner-item{
+    padding-left: 20px;
+    margin-bottom: 20px;
+}
+.ec-bottom{
+    width: 100%;
+    height: 60px;
+    text-align: center;
+}
+.exerciseInput{
+    width: 500px;
+}
+.ec-textarea{
+    margin-top: 20px;
+    margin-left: 20px;
+    font-size: 18px;
+    width: 350px;
+    height: 100px;
+}
+
+#chooseClassForCheckAnswer{
+    position: absolute;
+    width: 400px;
+    height: 500px;
+    top: 30px;
+    left: 550px;
+    border: #b9bbbe 1px solid;
+    z-index: 3000;
+    display: none;
+    background-color: white;
+    border-radius: 5px;
+    /*阴影效果*/
+    filter:progid:DXImageTransform.Microsoft.Shadow(color=#909090,direction=120,strength=4);
+    -moz-box-shadow: 2px 2px 10px #909090;
+    -webkit-box-shadow: 2px 2px 10px #909090;
+    box-shadow:2px 2px 10px #909090;
+}
+.ccfc-name{
+    width: 100%;
+    height: 40px;
+    padding-top: 10px;
+    font-size: 20px;
+    text-align: center;
+}
+.ccfc-content{
+    width: 100%;
+    height: 380px;
+    margin-top: 10px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+.ccfc-content-item{
+    width: 100%;
+    height: 40px;
+    padding-top: 10px;
+    padding-left: 20px;
+    font-size: 18px;
+}
+.ccfc-content-item:hover{
+    cursor: pointer;
+    background-color: #b9bbbe;
+}
+.ccfc-bottom{
+    width: 100%;
+    height: 50px;
+    margin-top: 10px;
+    text-align: center;
+}
